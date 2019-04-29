@@ -7,7 +7,7 @@
         android:id="@+id/view_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FDE91319">
+        android:background="#FFEB3B">
 
         <ImageView
             android:id="@+id/delete_icon"
@@ -16,7 +16,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/ic_delete_white_24dp" />
+            android:src="@drawable/ic_delete_sweep_black_24dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_toLeftOf="@id/delete_icon"
             android:text="Delete"
             android:textColor="#fff"
-            android:textSize="13dp" />
+            android:textSize="18dp" />
 
     </RelativeLayout>
     <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,18 +38,28 @@
         android:padding="10dp"
         android:id="@+id/view_foreground"
         >
-    <TextView
+        <ImageView
+            android:src="@drawable/ic_draft"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:adjustViewBounds="true"
+            android:id="@+id/img"
+
+            />
+  <!--  <TextView
         android:id="@+id/item_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem" />-->
 
     <TextView
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_toRightOf="@id/img"
+        />
     </RelativeLayout>
 </FrameLayout>

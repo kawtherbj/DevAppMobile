@@ -20,14 +20,22 @@ import android.widget.Toast;
 import com.example.devappmobile.dummy.DummyContent;
 import com.example.devappmobile.dummy.DummyContent.DummyItem;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A fragment representing a list of Items.
@@ -47,7 +55,7 @@ public class DraftFragment extends Fragment implements RecyclerItemTouchHelper.R
     private String token= "";//getArguments().getString("token");;
     public  MyDraftRecyclerViewAdapter mAdapter;
     private CoordinatorLayout coordinatorLayout;
-
+    SharedPreferences prefs;
 
     Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl("http://process.isiforge.tn/")
@@ -85,7 +93,7 @@ public class DraftFragment extends Fragment implements RecyclerItemTouchHelper.R
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_draft_list, container, false);
-        SharedPreferences prefs= this.getActivity().getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
+        prefs= this.getActivity().getSharedPreferences("MyPrefsFile", Context.MODE_PRIVATE);
         String restoredText = prefs.getString("token", null);
         if (restoredText != null) {
             token = prefs.getString("token", "No token defined");
@@ -116,7 +124,76 @@ public class DraftFragment extends Fragment implements RecyclerItemTouchHelper.R
         return view;
     }
 
+    public Boolean verifyToken() {
+        String dateString = prefs.getString("Expires_in", "Error token!!");
+        DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        try {
 
+            Date date = formatter.parse(dateString);
+
+            Calendar calendar = Calendar.getInstance();
+            Date datenow = calendar.getTime();
+
+            return datenow.before(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
+    private void refresh_Token() {
+
+        String refreshToken = prefs.getString("refresh", "Error token!!");
+
+        Login auth = new Login(refreshToken);
+
+
+        Call<User> call = userClient.login(auth);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                System.out.println("i m in refresh response");
+
+
+                if (response.isSuccessful()) {
+
+
+                    Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
+                    System.out.println("dateBEFORE" + calendar.getTime().toString());
+                    calendar.add(Calendar.SECOND, Integer.parseInt(response.body().getExpires_in()));
+
+                    SharedPreferences.Editor sh = getActivity().getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
+                    sh.putString("token", "Bearer " + response.body().getAccess_token());
+                    sh.putString("refresh", response.body().getRefresh_token());
+                    sh.putString("Expires_in",calendar.getTime().toString()) ;
+                    sh.commit();
+
+                    prepareData();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                System.out.println("failed refresh");
+            }
+        });
+    }
+    public void doAdapter(){
+
+        if (verifyToken()){
+            prepareData();
+        }else {
+            System.out.println("I m in refresh tokeen ");
+            refresh_Token();
+        }
+
+
+    }
     private void prepareData() {
 
         System.out.println(token);

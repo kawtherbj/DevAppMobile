@@ -143,18 +143,12 @@ public class NavActivity extends AppCompatActivity
             fm.beginTransaction().replace(R.id.nav_container, draftFragment, "2").commit();
 
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        }  else if (id == R.id.nav_share) {
             prefs.edit().remove("token").apply();
             prefs.edit().remove("refresh").apply();
             prefs.edit().remove("Expires_in").apply();
             Intent homeIntent = new Intent(NavActivity.this, MainActivity.class);
             startActivity(homeIntent);
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

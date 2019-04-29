@@ -59,7 +59,7 @@ public class MyDraftRecyclerViewAdapter extends RecyclerView.Adapter<MyDraftRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        //public final TextView mIdView;
         public final TextView mContentView;
         public Draft mItem;
         public RelativeLayout viewBackground, viewForeground;
@@ -67,7 +67,7 @@ public class MyDraftRecyclerViewAdapter extends RecyclerView.Adapter<MyDraftRecy
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
+          //  mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
             viewBackground = view.findViewById(R.id.view_background);
             viewForeground = view.findViewById(R.id.view_foreground);
@@ -87,7 +87,6 @@ public class MyDraftRecyclerViewAdapter extends RecyclerView.Adapter<MyDraftRecy
 
     public void restoreItem(Draft item, int position) {
         mValues.add(position, item);
-        // notify item added by position
         notifyItemInserted(position);
     }
 }

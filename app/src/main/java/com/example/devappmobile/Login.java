@@ -26,6 +26,9 @@ public class Login {
 
         this.refresh_token=g;
         this.grant_type="refresh_token" ;
+        this.scope="*";
+        this.client_id="SJGZDWXOPLJZLBDQGACCAGAVWSHORHJK";
+        this.client_secret="6734914665b5258c7a2eb01077382585";
 
     }
 }

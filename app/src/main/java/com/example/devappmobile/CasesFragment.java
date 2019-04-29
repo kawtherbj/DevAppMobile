@@ -139,19 +139,19 @@ public class CasesFragment extends Fragment {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                System.out.println("i m in refresh response");
 
 
                 if (response.isSuccessful()) {
-                    System.out.println("Success refresh");
 
-                    User token = response.body();
+
                     Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
                     System.out.println("dateBEFORE" + calendar.getTime().toString());
-                    calendar.add(Calendar.SECOND, Integer.parseInt(token.getExpires_in()));
+                    calendar.add(Calendar.SECOND, Integer.parseInt(response.body().getExpires_in()));
 
                     SharedPreferences.Editor sh = getActivity().getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
-                    sh.putString("token", "Bearer " + token.getAccess_token());
-                    sh.putString("refresh", token.getRefresh_token());
+                    sh.putString("token", "Bearer " + response.body().getAccess_token());
+                    sh.putString("refresh", response.body().getRefresh_token());
                     sh.putString("Expires_in",calendar.getTime().toString()) ;
                     sh.commit();
 
