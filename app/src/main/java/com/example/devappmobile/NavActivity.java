@@ -179,11 +179,8 @@ public class NavActivity extends AppCompatActivity
                         args.putString("tas_uid", item.getTas_uid());
                         args.putString("token", token);
                         fragment.setArguments(args);
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.nav_container, fragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+
+                        fm.beginTransaction().replace(R.id.nav_container, fragment, "3").commit();
 
 
 

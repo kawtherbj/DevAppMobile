@@ -10,13 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import  retrofit2.Retrofit;
+import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Calendar calendar = Calendar.getInstance(); // gets a calendar using the default time zone and locale.
                     System.out.println("dateBEFORE" + calendar.getTime().toString());
-                   // calendar.add(Calendar.SECOND, Integer.parseInt(response.body().getExpires_in()));
+                    calendar.add(Calendar.SECOND, Integer.parseInt(response.body().getExpires_in()));
 
                     token ="Bearer "+ response.body().getAccess_token();
 

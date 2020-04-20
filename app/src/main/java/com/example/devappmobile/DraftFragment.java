@@ -251,8 +251,8 @@ public class DraftFragment extends Fragment implements RecyclerItemTouchHelper.R
 
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar
-                    .make(getView(), name + " removed from cart!", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
+                    .make(getView(), name + " a ete supprime avec succes", Snackbar.LENGTH_LONG);
+            snackbar.setAction("Annuler", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
@@ -260,7 +260,7 @@ public class DraftFragment extends Fragment implements RecyclerItemTouchHelper.R
                     mAdapter.restoreItem(deletedItem, deletedIndex);
                 }
             });
-            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.setActionTextColor(Color.RED);
             snackbar.show();
         }
     }

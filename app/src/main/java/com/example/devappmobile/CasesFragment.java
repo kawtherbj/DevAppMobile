@@ -175,7 +175,7 @@ public class CasesFragment extends Fragment {
         cal.enqueue(new Callback<List<ProcessList>>() {
             @Override
             public void onResponse(Call<List<ProcessList>> call, Response<List<ProcessList>> response) {
-                Toast.makeText(getContext(), "ok", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "ok", Toast.LENGTH_SHORT).show();
                 if( response.body() != null) {
                     for (int i = 0; i < response.body().size(); i++)
                         list.add(response.body().get(i));

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.RequiresPermission;
 import android.support.design.button.MaterialButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -150,7 +151,7 @@ public class FormFragment extends Fragment {
                         String type = formItem.getString("type");
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT
+                                LinearLayout.LayoutParams.MATCH_PARENT
                         );
                         params.setMargins(0, 32, 0, 0);
                         switch (type) {
@@ -159,7 +160,6 @@ public class FormFragment extends Fragment {
                                 System.out.println(formItem.getString("label"));
                                 String test = formItem.getString("label");
                                 String t = "Etudiant";
-
                                 if (test.equals(t)){
                                     System.out.println("Im heree");
                                     TextView title1 = new TextView(getActivity());
@@ -235,12 +235,6 @@ public class FormFragment extends Fragment {
 
                                         JSONArray variables = new JSONArray();
                                         variables.put(apiPostFormObject);
-                                      /*  JSONObject body = "{\"pro_uid\":\"" + pro_uid + "\",\n" +
-                                                "\"tas_uid\":\"" + tas_uid + "\",\n" +
-                                                "\"variables\":" + variables.toString() + "\n" +
-                                                "}";*/
-                                     // System.out.println(tas_uid);
-                                      //System.out.println(variables.);
 
                                         NewProcess body = null;
                                         try {
@@ -256,10 +250,10 @@ public class FormFragment extends Fragment {
                                             public void onResponse(Call<NewProcessRep> call, Response<NewProcessRep> response) {
                                                 if (response.isSuccessful()) {
 
-                                                    System.out.println("okayyyyyyyyyyyyyyyyyyyyyyyyyy"+response.toString());
+                                                    Snackbar snackbar = Snackbar
+                                                            .make(getView(), "Votre demande a ete enregistre", Snackbar.LENGTH_LONG);
 
-                                                } else {
-                                                    System.out.println("okayyyyyyyyyyyyyyyyyyyyyyyyyy"+response.toString());
+                                                    snackbar.show();
                                                 }
                                             }
 

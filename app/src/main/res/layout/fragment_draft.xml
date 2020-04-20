@@ -7,7 +7,7 @@
         android:id="@+id/view_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFEB3B">
+        android:background="#F3251C">
 
         <ImageView
             android:id="@+id/delete_icon"
